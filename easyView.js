@@ -1,22 +1,37 @@
-var mainWindow = document.querySelector(".mainWindow");
-var cachedItems = document.querySelector(".cachedItems");
-var impactElements = Array.prototype.slice.call(document.querySelector(".impactElements").children);
-var count = null;
-var tmpEl = 0;
+"use strict";
 
-var preview = function () {
-  count = impactElements.indexOf(this);
+function Slider(impactElements, cachedItems, mainWindow) {
+  this.impactElements = impactElements;
+  this.cachedItems = cachedItems;
+  this.mainWindow = mainWindow;
+  this.count = null;
+  this.tmpEl = 0;
+}
 
-  if ( count === tmpEl ) return;
-
-  tmpEl = count;
-
-  if (mainWindow.children) {
-    mainWindow.removeChild(mainWindow.firstElementChild);
+Slider.prototype.bindEvents = function () {
+  for (var i=0; i < this.impactElements.length; i++) {  
+    var _this = this; 
+    this.impactElements[i].onmouseover = function () {
+      _this.count = _this.impactElements.indexOf(this);
+      
+      if ( _this.count === _this.tmpEl ) return;
+      _this.tmpEl = _this.count;
+      
+      _this.mainWindow.removeChild(_this.mainWindow.firstElementChild);
+      _this.mainWindow.appendChild(_this.cachedItems.children[_this.count].cloneNode(true));
+    }
   }
-  mainWindow.appendChild(cachedItems.children[count].cloneNode(true));
-};
+}
 
-for (var i = 0; i < impactElements.length; i++) {
-  impactElements[i].onmouseover = preview;
+var slider = [];
+
+for (var i = 0; i < document.getElementsByClassName('easyView').length; i++) {
+  var current = document.getElementsByClassName('easyView')[i];
+  slider[i] = new Slider(
+                          Array.prototype.slice.call(current.querySelector(".impactElements").children), 
+                          current.querySelector(".cachedItems"), 
+                          current.querySelector(".mainWindow")
+                        );
+  
+  slider[i].bindEvents();
 }

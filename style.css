@@ -1,3 +1,22 @@
+/* Main style */
+
+.mainWindow > * {
+  animation: fade .8s linear;
+}
+.mainWindow img {
+  max-height: 400px;
+}
+.cachedItems {
+  display: none;
+}
+@keyframes fade {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+/* Extra style */
+
+
 * { box-sizing: border-box; }
 
 ul { padding: 0; }
@@ -6,28 +25,28 @@ ul { padding: 0; }
   margin: 0 auto;
   text-align: center;
 }
-.mainWindow > * {
-  animation: fade .8s linear;
-}
 .mainWindow img {
   max-width: 100%;
-  max-height: 400px;
   border: 8px solid #81c778;
-}
-.cachedItems {
-  display: none;
 }
 .impactElements li {
   text-align: center;
   padding: 8px;
   list-style: none;
   background: #81c778;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 .impactElements li:hover {
   background: #548e4c;
 }
-@keyframes fade {
-  0% { opacity: 0.2; }
-  100% { opacity: 1; }
+.col-50 {
+  width: 50%;
+  margin: 0;
+  padding: 20px;
+  float: left;
+}
+.row:after {
+  display: block;
+  content: "";
+  clear: both;
 }
